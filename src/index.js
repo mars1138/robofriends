@@ -2,19 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
+import { createLogger, applyMiddleware } from 'redux-logger';
 import './index.css';
 import App from './containers/App';
 import reportWebVitals from './reportWebVitals';
 import { searchRobots } from './reducers';
 import 'tachyons';
 
-const store = createStore(searchRobots);
+const logger = createLogger();
+const store = createStore(searchRobots, applyMiddleware(logger));
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />,
+    <App />
   </Provider>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

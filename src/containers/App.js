@@ -28,15 +28,15 @@ class App extends Component {
     };
   }
 
-  async componentDidMount() {
-    // console.log(this.props.store.getState());
-    const res = await fetch('https://jsonplaceholder.typicode.com/users');
-    const users = await res.json();
-    this.setState({ robots: users });
+  componentDidMount() {
+    console.log('this.props: ', this.props);
+    // const res = await fetch('https://jsonplaceholder.typicode.com/users');
+    // const users = await res.json();
+    // this.setState({ robots: users });
 
-    // fetch('https://jsonplaceholder.typicode.com/users')
-    //   .then(response => response.json())
-    //   .then(users => this.setState({ robots: users }));
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(response => response.json())
+      .then(users => this.setState({ robots: users }));
   }
 
   // // using arrow function allows this to be set to App class
