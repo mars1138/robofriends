@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import { createLogger } from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import './index.css';
@@ -13,10 +13,12 @@ import 'tachyons';
 const logger = createLogger();
 
 const rootReducer = combineReducers({ searchRobots, requestRobots });
-const store = createStore(
-  rootReducer,
-  applyMiddleware(thunkMiddleware, logger)
+const composedEnhancer = compose(
+  applyMiddleware(thunkMiddleware, logger),
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
+
+const store = createStore(rootReducer, composedEnhancer);
 
 ReactDOM.render(
   <Provider store={store}>
